@@ -1,0 +1,6 @@
+1.  The parent project should use maven-archetype-quickStart.  The modules should be simple.
+2.  You can change the local repository.  I like as much as possible under ~/JavaDevelopment.
+    I installed eclipse, java, maven, and NetCdf there.  To get Maven to use ~/JavaDevelopment/.m2
+    I had to get the .settings file from mvn's install, copy it over to ~/JavaDevelopment/.m2,
+    and edit it so that it only had the local repository tag.
+    Note: I don't really need mvn at all; Eclipse comes with a built-in Maven.

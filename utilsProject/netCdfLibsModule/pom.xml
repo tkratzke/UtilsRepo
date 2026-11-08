@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.skagit</groupId>
+		<artifactId>utilsProject</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>netCdfLibsModule</artifactId>
+
+	<properties>
+		<netCdfVersion>5.11.0</netCdfVersion>
+		<loggingVersion>2.0.20</loggingVersion>
+		<!--NB: guavaVersion must match cdm-core's guava runtime version.-->
+		<guavaVersion>33.7.1-jre</guavaVersion>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>${loggingVersion}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guavaVersion}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucar</groupId>
+			<artifactId>cdm-core</artifactId>
+			<version>${netCdfVersion}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucar</groupId>
+			<artifactId>netcdf4</artifactId>
+			<version>${netCdfVersion}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.skagit</groupId>
+			<artifactId>commonsLibsModule</artifactId>
+			<version>${revision}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>unidata-all</id>
+			<name>Unidata All</name>
+			<url>https://artifacts.unidata.ucar.edu/repository/unidata-all/</url>
+		</repository>
+	</repositories>
+
+</project>

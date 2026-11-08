@@ -1,0 +1,45 @@
+# Eclipse workspace metadata
+metadata/
+settings/
+recommenders/
+
+# Eclipse project files
+.classpath
+.project
+.settings/
+.classpath
+
+# Build output and temp files
+bin/
+target/
+out/
+tmp/
+*.tmp
+*.bak
+*.log
+*.swp
+*.class
+
+# Maven
+.mvn/
+build/
+
+.vs/
+x64/
+*.pdb
+*.suo
+*.obj
+
+*Dbg.txt
+*Out.txt
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+*.jar
+*.zip
+!jsc.jar
+
+*.bitSetPlus
+

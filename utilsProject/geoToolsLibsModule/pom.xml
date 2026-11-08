@@ -1,0 +1,51 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.skagit</groupId>
+		<artifactId>utilsProject</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<artifactId>geoToolsLibsModule</artifactId>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.geotools</groupId>
+				<artifactId>gt-bom</artifactId>
+				<version>35.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-shapefile</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.geotools</groupId>
+			<artifactId>gt-swing</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>osgeo</id>
+			<name>OSGeo Release Repository</name>
+			<url>https://repo.osgeo.org/repository/release/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+</project>
