@@ -93,16 +93,16 @@ public class MyFraction {
 		_den = normalized[1];
 	}
 
-	public MyFraction(final double v0) {
-		final double v = Math.abs(v0);
+	public MyFraction(final double d0, final double threshold) {
+		final double d = Math.abs(d0);
 		long num0 = 1L;
 		long den0 = 0L;
-		long num1 = (long) Math.floor(v);
+		long num1 = (long) Math.floor(d);
 		long den1 = 1;
-		double r = v - num1;
+		double r = d - num1;
 
 		for (;;) {
-			if (r < 1.0e-12) {
+			if (r < threshold) {
 				break;
 			}
 			r = 1d / r;
@@ -121,7 +121,7 @@ public class MyFraction {
 			den1 = newDen;
 			r -= floor;
 		}
-		_num = v0 < 0 ? -num1 : num1;
+		_num = d0 < 0 ? -num1 : num1;
 		_den = den1;
 	}
 
@@ -272,7 +272,7 @@ public class MyFraction {
 
 	public static void main(final String[] args) {
 		final double d = 43d / 17d;
-		final MyFraction myFraction = new MyFraction(d);
+		final MyFraction myFraction = new MyFraction(d, /* threshold= */1.0e-5);
 		System.out.println(String.format("%f: %s", d, myFraction.getString(/* printFloat= */true)));
 	}
 
