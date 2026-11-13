@@ -20,16 +20,15 @@ public class ExcelFileChecker {
 	}
 
 	public static void main(final String[] args) {
-		final Scanner scanner = new Scanner(System.in);
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.print("Enter a filename: ");
+			final String filename = scanner.nextLine().trim();
 
-		System.out.print("Enter a filename: ");
-		final String filename = scanner.nextLine().trim();
-
-		if (endsWithXlsPlusOne(filename)) {
-			System.out.println("✅ Matches: ends with .xls plus optionally one more character.");
-		} else {
-			System.out.println("❌ Does not match the pattern.");
+			if (endsWithXlsPlusOne(filename)) {
+				System.out.println("✅ Matches: ends with .xls plus optionally one more character.");
+			} else {
+				System.out.println("❌ Does not match the pattern.");
+			}
 		}
-		scanner.close();
 	}
 }

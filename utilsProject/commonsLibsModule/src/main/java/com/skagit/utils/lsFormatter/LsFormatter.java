@@ -147,8 +147,7 @@ public class LsFormatter {
 		try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
 			dumpWithTimeComment(element, baos);
 			final byte[] byteArray = baos.toByteArray();
-			final String s = new String(byteArray, LsFormatter._CharsetName);
-			return s;
+			return new String(byteArray, LsFormatter._CharsetName);
 		} catch (final Exception e) {
 			System.exit(187);
 		}
@@ -236,8 +235,7 @@ public class LsFormatter {
 	}
 
 	public static String StandardFormat(final boolean b) {
-		final String s = String.valueOf(b);
-		return s;
+		return String.valueOf(b);
 	}
 
 	public static String StandardFormat(final double d) {
@@ -245,31 +243,35 @@ public class LsFormatter {
 	}
 
 	public static String StandardFormatForLatOrLng(final double latOrLng) {
-		if (!(-180d <= latOrLng && latOrLng < 180d))
+		if (!(-180d <= latOrLng && latOrLng < 180d)) {
 			return String.format("%.2g", latOrLng >= 0d ? 1.0e20 : -1.0e20);
+		}
 		return StandardFormat(latOrLng, _NDigitsForLatorLng);
 	}
 
 	private static String StandardFormat(final double d, final int nDigitsInitial) {
 		final double absD = Math.abs(d);
-		if (!(absD < Long.MAX_VALUE))
+		if (!(absD < Long.MAX_VALUE)) {
 			return String.format("%.2g", d >= 0d ? 1.0e20 : -1.0e20);
+		}
 		if (absD >= 1d) {
 			final long intPart = Math.round(Math.floor(absD));
 			final String intPartString = String.format("%s%d", d < 0 ? "-" : "", intPart);
 			final double fracPart = absD - intPart;
-			if (!(0d <= fracPart && fracPart < 1d))
+			if (!(0d <= fracPart && fracPart < 1d)) {
 				/** Something is gummed up. Must be a huge number. */
 				return String.format("%.2g", d >= 0d ? 1.0e20 : -1.0e20);
-			if (fracPart <= 0d)
+			}
+			if (fracPart <= 0d) {
 				return intPartString;
+			}
 			final String fracPartStringX = StandardFormat(fracPart);
 			final int dot = fracPartStringX.indexOf('.');
-			if (dot >= fracPartStringX.length() - 1)
+			if (dot >= fracPartStringX.length() - 1) {
 				return intPartString;
+			}
 			final String fracPartString = fracPartStringX.substring(dot + 1);
-			final String s = String.format("%s.%s", intPartString, fracPartString);
-			return s;
+			return String.format("%s.%s", intPartString, fracPartString);
 		}
 		for (int nDigits = nDigitsInitial;;) {
 			final BigDecimal bigDecimal1 = new BigDecimal(d, new MathContext(nDigits, RoundingMode.HALF_UP));
@@ -284,8 +286,9 @@ public class LsFormatter {
 			final DecimalFormat decimalFormat = new DecimalFormat(pattern);
 			final String s1 = decimalFormat.format(bigDecimal2);
 			final int dot = s1.indexOf('.');
-			if (dot < 0)
+			if (dot < 0) {
 				return s1;
+			}
 			final int k0 = s1.indexOf("0000000");
 			if (k0 > dot) {
 				nDigits = k0 - dot;
@@ -312,31 +315,34 @@ public class LsFormatter {
 	public static String StandardPercentFormat(final double[] numDen) {
 		final double num = numDen[0], den = numDen[1];
 		/** Check for bad. */
-		if (!(0d <= num && num < Double.MAX_VALUE) || !(0d < den && den < Double.MAX_VALUE))
+		if (!(0d <= num && num < Double.MAX_VALUE) || !(0d < den && den < Double.MAX_VALUE)) {
 			return _BadPercentString;
+		}
 		/**
 		 * num is at least 0, den is bigger than 0, and both are of reasonable size.
 		 */
 		final double q = (100d * num) / den;
-		if (!(0d <= q && q <= 100d + _Eps))
+		if (!(0d <= q && q <= 100d + _Eps)) {
 			/** It's bad. */
 			return _BadPercentString;
-		else if (num == 0d)
+		}
+		if (num == 0d) {
 			/** Exactly 0. */
 			return _ZeroString;
-		else if (q >= 100d - _Eps)
+		}
+		if (q >= 100d - _Eps) {
 			/** "Exactly 100." */
 			return _OneHunderedString;
-		else {
-			final String s = String.format(_MagicFormat, q);
-			if (s.equals(_ZeroString))
-				/** Not 0, but looks like 0. */
-				return _SmallString;
-			else if (s.equals(_OneHunderedString))
-				/** Not 100, but looks like 100. */
-				return _BigString;
-			else
-				return s;
+		}
+		final String s = String.format(_MagicFormat, q);
+		if (s.equals(_ZeroString)) {
+			/** Not 0, but looks like 0. */
+			return _SmallString;
+		} else if (s.equals(_OneHunderedString)) {
+			/** Not 100, but looks like 100. */
+			return _BigString;
+		} else {
+			return s;
 		}
 	}
 
@@ -359,8 +365,7 @@ public class LsFormatter {
 	public static Document buildDocumentFromString(final MyLogger logger, final String elementString) {
 		try {
 			final byte[] textBytes = elementString.getBytes(_CharsetName);
-			final Document document = _DocumentBuilder.parse(new ByteArrayInputStream(textBytes));
-			return document;
+			return _DocumentBuilder.parse(new ByteArrayInputStream(textBytes));
 		} catch (final SAXException | IOException e) {
 			logger.err(StringUtilities.getStackTraceString(e));
 		}
@@ -444,20 +449,23 @@ public class LsFormatter {
 	}
 
 	public static void main2(final String[] args) {
-		final FilenameFilter fileNameFilter = (dummy, name) -> {
+		final FilenameFilter fileNameFilter = (_, name) -> {
 			final int nameLength = name == null ? 0 : name.length();
-			if ((nameLength < 4) || (name.lastIndexOf('.') != nameLength - 4))
+			if ((nameLength < 4) || (name.lastIndexOf('.') != nameLength - 4)) {
 				return false;
+			}
 			String myEnding = name.substring(nameLength - 4);
-			if (myEnding.compareToIgnoreCase(".xml") != 0)
+			if (myEnding.compareToIgnoreCase(".xml") != 0) {
 				return false;
+			}
 			/** Skip the ones that are already "pretty." */
 			final String superSuffix = "_pretty.xml";
 			final int superSuffixLength = superSuffix.length();
 			if (nameLength >= superSuffixLength) {
 				myEnding = name.substring(nameLength - superSuffixLength);
-				if (myEnding.compareToIgnoreCase(superSuffix) == 0)
+				if (myEnding.compareToIgnoreCase(superSuffix) == 0) {
 					return false;
+				}
 			}
 			return true;
 		};
@@ -470,10 +478,8 @@ public class LsFormatter {
 					final File file2 = new File(file, name);
 					allNames.add(StringUtilities.getCanonicalPath(file2));
 				}
-			} else {
-				if (fileNameFilter.accept(null, fileName)) {
-					allNames.add(fileName);
-				}
+			} else if (fileNameFilter.accept(null, fileName)) {
+				allNames.add(fileName);
 			}
 		}
 		final String[] allFileNames = allNames.toArray(new String[allNames.size()]);

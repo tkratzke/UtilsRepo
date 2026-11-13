@@ -556,7 +556,7 @@ public class StaticUtilities {
 		if (directoryFile != null && directoryFile.isDirectory()) {
 			String[] fileNames = null;
 			fileNames = directoryFile.list(
-					(dummy, fileName) -> suffix == null || fileName.toLowerCase().endsWith("." + suffix.toLowerCase()));
+					(_, fileName) -> suffix == null || fileName.toLowerCase().endsWith("." + suffix.toLowerCase()));
 			final int nI = fileNames.length;
 			for (int i = 0; i < nI; ++i) {
 				final File fileToDie = new File(directoryFile, fileNames[i]);
