@@ -338,12 +338,12 @@ public class LsFormatter {
 		if (s.equals(_ZeroString)) {
 			/** Not 0, but looks like 0. */
 			return _SmallString;
-		} else if (s.equals(_OneHunderedString)) {
+		}
+		if (s.equals(_OneHunderedString)) {
 			/** Not 100, but looks like 100. */
 			return _BigString;
-		} else {
-			return s;
 		}
+		return s;
 	}
 
 	public static DocumentBuilder getBuilder() {
@@ -449,7 +449,7 @@ public class LsFormatter {
 	}
 
 	public static void main2(final String[] args) {
-		final FilenameFilter fileNameFilter = (_, name) -> {
+		final FilenameFilter fileNameFilter = (dummy, name) -> {
 			final int nameLength = name == null ? 0 : name.length();
 			if ((nameLength < 4) || (name.lastIndexOf('.') != nameLength - 4)) {
 				return false;
