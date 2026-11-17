@@ -368,6 +368,22 @@ public class CombinatoricTools {
 		return n - 1;
 	}
 
+	public static <T extends Comparable<T>> int getGlbIndex(final T[] tArray, final T t) {
+		final int j = Arrays.binarySearch(tArray, t);
+		if (j < 0) {
+			return -j - 2;
+		}
+		final int n = tArray.length;
+		int idx = j;
+		for (idx = j + 1; idx < n; ++idx) {
+			final int compareValue = tArray[idx].compareTo(t);
+			if (compareValue > 0) {
+				return idx - 1;
+			}
+		}
+		return n - 1;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <T extends Object> T[] consolidate(final T[] array) {
 		if (array == null) {
