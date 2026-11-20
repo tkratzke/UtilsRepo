@@ -22,8 +22,8 @@ public class ResourcesLister0 {
 		}
 
 		public String getString() {
-			return String.format("From cpEntry %s(%s):  relativeString=%s.", StringUtilities.getCanonicalPath(_cpEntry),
-					_fromDirectory ? "dir" : "jar", _relativePath);
+			return String.format("From cpEntry %s(%s):\n  relativeString=%s.",
+					StringUtilities.getCanonicalPath(_cpEntry), _fromDirectory ? "dir" : "jar", _relativePath);
 		}
 
 		@Override
@@ -33,7 +33,7 @@ public class ResourcesLister0 {
 	}
 
 	final private static String _FileSeparatorString = System.getProperties().getProperty("file.separator");
-	final private static String[] _ClassPathEntries;
+	final public static String[] _ClassPathEntries;
 
 	static {
 		final String pathSeparatorString = System.getProperties().getProperty("path.separator");
@@ -73,10 +73,10 @@ public class ResourcesLister0 {
 			}
 			while (enumeration.hasMoreElements()) {
 				final ZipEntry zipEntry = enumeration.nextElement();
-				final String zipName = zipEntry.getName();
-				if (pattern.matcher(zipName).matches()) {
+				final String zipEntryName = zipEntry.getName();
+				if (pattern.matcher(zipEntryName).matches()) {
 					cpEntryAndRelativePaths
-							.add(new CpEntryAndRelativePath(/* fromDirectory= */false, cpJarFile, zipName));
+							.add(new CpEntryAndRelativePath(/* fromDirectory= */false, cpJarFile, zipEntryName));
 				}
 			}
 		} catch (final IOException e) {
