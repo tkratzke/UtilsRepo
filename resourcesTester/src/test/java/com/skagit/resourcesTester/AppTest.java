@@ -1,4 +1,4 @@
-package com.skagit.testUtilsProject1;
+package com.skagit.resourcesTester;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

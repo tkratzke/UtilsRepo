@@ -3,7 +3,7 @@
   <parent>
     <groupId>com.skagit</groupId>
     <artifactId>utilsProject</artifactId>
-    <version>${revision}</version>
+    <version>1.0</version>
   </parent>
   <artifactId>mathLibsModule</artifactId>
 	<dependencies>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>com.skagit</groupId>
 			<artifactId>commonsLibsModule</artifactId>
-			<version>${revision}</version>
+			<version>${utilsProject.version}</version>
 		</dependency>
 	</dependencies>
 </project>

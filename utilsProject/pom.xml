@@ -6,14 +6,14 @@
 
 	<groupId>com.skagit</groupId>
 	<artifactId>utilsProject</artifactId>
-	<version>${revision}</version>
+	<version>1.0</version>
 	<packaging>pom</packaging>
 
 	<name>utilsProject</name>
 	<url>http://www.example.com</url>
 
 	<properties>
-		<revision>1.0</revision>
+		<utilsProject.version>1.0</utilsProject.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
 	</properties>
@@ -99,8 +99,6 @@
 		<module>netCdfLibsModule</module>
 		<module>poiLibsModule</module>
 		<module>geoToolsLibsModule</module>
-	<!--
-		<module>latLngModule</module>
-	-->
+	<!--<module>latLngModule</module>-->
 	</modules>
 </project>

@@ -1,4 +1,4 @@
-package com.skagit.testUtilsProject0;
+package com.skagit.resourcesTester;
 
 /**
  * Hello world!

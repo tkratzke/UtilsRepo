@@ -4,10 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.skagit</groupId>
-  <artifactId>testUtilsProject1</artifactId>
+  <artifactId>resourcesTester</artifactId>
   <version>1.0</version>
 
-  <name>testUtilsProject1</name>
+  <name>resourcesTester</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -40,12 +40,6 @@
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
     </dependency>
-		<dependency>
-			<groupId>com.skagit</groupId>
-			<artifactId>commonsLibsModule</artifactId>
-			<version>1.0</version>
-			<scope>compile</scope>
-		</dependency>
   </dependencies>
 
   <build>
