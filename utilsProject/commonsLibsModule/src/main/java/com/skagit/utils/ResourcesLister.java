@@ -31,6 +31,10 @@ public class ResourcesLister {
 			return _cpEntry.toFile().isFile();
 		}
 
+		public Path getFilePath() {
+			return isJarFile() ? null : _cpEntry.resolve(_rltvPath);
+		}
+
 		public String getString() {
 			return String.format("%s::%s(%s), size[%d]", _cpEntry, _rltvPath, isJarFile() ? "JAR" : "DIR", _size);
 		}
@@ -44,18 +48,20 @@ public class ResourcesLister {
 	final private static String[] _CpEntries = System.getProperty("java.class.path").split(File.pathSeparator);
 	final private static String _SeparatorString = String.valueOf(File.separatorChar); // (eg / or \)
 
-	public static Stream<Resource> getRsrcs(final Package pckg, final String regExForFileName) {
+	public static Resource[] getRsrcs(final Package pckg, final String regExForFileName0) {
 		final ArrayList<Resource> allRsrcs = new ArrayList<>();
 
 		final String regEx0;
 		if ("\\".equals(_SeparatorString)) {
 			/**
 			 * Since _SeparatorString is a backslash, we need to send two of them, wherever
-			 * we had a dot, to Pattern.compile.
+			 * we want a backslash, to Pattern.compile.
 			 */
 			final String doubledSeparator = _SeparatorString + _SeparatorString;
+			final String regExForFileName = regExForFileName0.replace("/", doubledSeparator);
 			regEx0 = pckg.getName().replace(".", doubledSeparator) + doubledSeparator + regExForFileName;
 		} else {
+			final String regExForFileName = regExForFileName0.replace("\\", _SeparatorString);
 			regEx0 = pckg.getName().replace(".", _SeparatorString) + _SeparatorString + regExForFileName;
 		}
 		final Pattern pattern0 = Pattern.compile(regEx0, Pattern.CASE_INSENSITIVE);
@@ -86,6 +92,7 @@ public class ResourcesLister {
 			}
 		}
 
+		final String regExForFileName = regExForFileName0.replace("\\", _SeparatorString);
 		final String regEx1 = pckg.getName().replace('.', '/') + '/' + regExForFileName;
 		final Pattern pattern1 = Pattern.compile(regEx1, Pattern.CASE_INSENSITIVE);
 		final Predicate<ZipEntry> predForFilter1 = new Predicate<>() {
@@ -113,14 +120,14 @@ public class ResourcesLister {
 				}
 			}
 		}
-		return allRsrcs.stream();
+		return allRsrcs.toArray(new Resource[allRsrcs.size()]);
 	}
 
 	public static void main(final String[] args) {
 		final Class<?> clazz = StaticUtilities.getMyClass();
 		final Package pckg = clazz.getPackage();
 		final String regExForFileName = "(a|b)\\.(txt|properties)";
-		getRsrcs(pckg, regExForFileName).forEach(System.out::println);
+		Stream.of(getRsrcs(pckg, regExForFileName)).forEach(System.out::println);
 	}
 
 }
