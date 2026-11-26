@@ -51,7 +51,7 @@ public class ResourcesLister {
 	public static Resource[] getRsrcs(final Package pckg, final String regExForFileName0) {
 		final ArrayList<Resource> allRsrcs = new ArrayList<>();
 
-		final String regEx0;
+		final String regEx0x;
 		if ("\\".equals(_SeparatorString)) {
 			/**
 			 * Since _SeparatorString is a backslash, we need to send two of them, wherever
@@ -59,11 +59,12 @@ public class ResourcesLister {
 			 */
 			final String doubledSeparator = _SeparatorString + _SeparatorString;
 			final String regExForFileName = regExForFileName0.replace("/", doubledSeparator);
-			regEx0 = pckg.getName().replace(".", doubledSeparator) + doubledSeparator + regExForFileName;
+			regEx0x = pckg.getName().replace(".", doubledSeparator) + doubledSeparator + regExForFileName;
 		} else {
 			final String regExForFileName = regExForFileName0.replace("\\", _SeparatorString);
-			regEx0 = pckg.getName().replace(".", _SeparatorString) + _SeparatorString + regExForFileName;
+			regEx0x = pckg.getName().replace(".", _SeparatorString) + _SeparatorString + regExForFileName;
 		}
+		final String regEx0 = regEx0x + (regEx0x.endsWith("$") ? "" : "$");
 		final Pattern pattern0 = Pattern.compile(regEx0, Pattern.CASE_INSENSITIVE);
 		final Predicate<Path> predForFilter0 = new Predicate<>() {
 
@@ -92,8 +93,10 @@ public class ResourcesLister {
 			}
 		}
 
+		/** jarFiles use forward slashes. */
 		final String regExForFileName = regExForFileName0.replace("\\", _SeparatorString);
-		final String regEx1 = pckg.getName().replace('.', '/') + '/' + regExForFileName;
+		final String regEx1x = pckg.getName().replace('.', '/') + '/' + regExForFileName;
+		final String regEx1 = regEx1x + (regEx1x.endsWith("$") ? "" : "$");
 		final Pattern pattern1 = Pattern.compile(regEx1, Pattern.CASE_INSENSITIVE);
 		final Predicate<ZipEntry> predForFilter1 = new Predicate<>() {
 
